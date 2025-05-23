@@ -45,8 +45,23 @@ function draw() {
     }
     endShape();
 
-    // 畫綠色線
-    stroke(0, 255, 0);
+    // 以左眼 159(上) 和 145(下) 判斷眼睛狀態
+    let eyeOpen = true;
+    if (keypoints[159] && keypoints[145]) {
+      let y1 = keypoints[159][1];
+      let y2 = keypoints[145][1];
+      let eyeDist = Math.abs(y1 - y2);
+      eyeOpen = eyeDist > 10; // 閾值可依實際調整
+    }
+
+    // 畫綠色線或藍色虛線
+    if (eyeOpen) {
+      stroke(0, 255, 0);
+      drawingContext.setLineDash([]); // 實線
+    } else {
+      stroke(0, 0, 255);
+      drawingContext.setLineDash([10, 10]); // 虛線
+    }
     strokeWeight(10);
     noFill();
     beginShape();
@@ -58,6 +73,7 @@ function draw() {
       }
     }
     endShape();
+    drawingContext.setLineDash([]); // 恢復實線
   }
   pop();
 }
