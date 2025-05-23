@@ -1,7 +1,7 @@
 let video;
 let facemesh;
 let predictions = [];
-const indices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291];
+const indices = [243,190,56,28,27,29,30,247,130,25,110,24,23,22,26,112];
 
 function setup() {
   let cnv = createCanvas(640, 480);
@@ -29,8 +29,8 @@ function draw() {
 
   if (predictions.length > 0) {
     const keypoints = predictions[0].scaledMesh;
-    stroke(255, 0, 0);
-    strokeWeight(15);
+    stroke(0, 255, 0);
+    strokeWeight(10);
     noFill();
     beginShape();
     for (let i = 0; i < indices.length; i++) {
