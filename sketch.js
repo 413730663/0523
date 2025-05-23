@@ -42,11 +42,15 @@ function draw() {
     }
     endShape();
 
-    for (let i = 0; i < keypoints.length; i++) {
-      const [x, y] = keypoints[i];
-      fill(0, 255, 0);
-      noStroke();
-      ellipse(x, y, 5, 5);
+    // 只畫 indices 內的點
+    for (let i = 0; i < indices.length; i++) {
+      const idx = indices[i];
+      if (keypoints[idx]) {
+        const [x, y] = keypoints[idx];
+        fill(0, 255, 0);
+        noStroke();
+        ellipse(x, y, 8, 8);
+      }
     }
   }
   pop();
