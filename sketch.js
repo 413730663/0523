@@ -2,7 +2,8 @@ let video;
 let facemesh;
 let predictions = [];
 const redIndices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291];
-const greenIndices = [243, 190, 56, 28, 27, 29, 30, 247, 130, 25, 110, 24, 23, 22, 26, 112];
+const greenIndices1 = [243, 190, 56, 28, 27, 29, 30, 247, 130, 25, 110, 24, 23, 22, 26, 112];
+const greenIndices2 = [133, 173, 157, 158, 159, 160, 161, 246, 33, 7, 163, 144, 145, 153, 154, 155];
 
 function setup() {
   let cnv = createCanvas(640, 480);
@@ -45,35 +46,33 @@ function draw() {
     }
     endShape();
 
-    // 以左眼 159(上) 和 145(下) 判斷眼睛狀態
-    let eyeOpen = true;
-    if (keypoints[159] && keypoints[145]) {
-      let y1 = keypoints[159][1];
-      let y2 = keypoints[145][1];
-      let eyeDist = Math.abs(y1 - y2);
-      eyeOpen = eyeDist > 10; // 閾值可依實際調整
-    }
-
-    // 畫綠色線或藍色虛線
-    if (eyeOpen) {
-      stroke(0, 255, 0);
-      drawingContext.setLineDash([]); // 實線
-    } else {
-      stroke(0, 0, 255);
-      drawingContext.setLineDash([10, 10]); // 虛線
-    }
+    // 畫第一組綠色線
+    stroke(0, 255, 0);
     strokeWeight(10);
     noFill();
     beginShape();
-    for (let i = 0; i < greenIndices.length; i++) {
-      const idx = greenIndices[i];
+    for (let i = 0; i < greenIndices1.length; i++) {
+      const idx = greenIndices1[i];
       if (keypoints[idx]) {
         const [x, y] = keypoints[idx];
         vertex(x, y);
       }
     }
     endShape();
-    drawingContext.setLineDash([]); // 恢復實線
+
+    // 畫第二組綠色線
+    stroke(0, 255, 0);
+    strokeWeight(10);
+    noFill();
+    beginShape();
+    for (let i = 0; i < greenIndices2.length; i++) {
+      const idx = greenIndices2[i];
+      if (keypoints[idx]) {
+        const [x, y] = keypoints[idx];
+        vertex(x, y);
+      }
+    }
+    endShape();
   }
   pop();
 }
