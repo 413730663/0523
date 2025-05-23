@@ -1,9 +1,9 @@
 let video;
 let facemesh;
 let predictions = [];
-const redIndices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291];
-const greenIndices1 = [243, 190, 56, 28, 27, 29, 30, 247, 130, 25, 110, 24, 23, 22, 26, 112];
-const greenIndices2 = [133, 173, 157, 158, 159, 160, 161, 246, 33, 7, 163, 144, 145, 153, 154, 155];
+const redIndices = [409,270,269,267,0,37,39,40,185,61,146,91,181,84,17,314,405,321,375,291];
+const greenIndices = [243,190,56,28,27,29,30,247,130,25,110,24,23,22,26,112];
+const blueIndices = [359,467,260,259,257,258,286,414,463,341,256,252,253,254,339,255];
 
 function setup() {
   let cnv = createCanvas(640, 480);
@@ -46,13 +46,13 @@ function draw() {
     }
     endShape();
 
-    // 畫第一組綠色線
+    // 畫綠色線
     stroke(0, 255, 0);
     strokeWeight(10);
     noFill();
     beginShape();
-    for (let i = 0; i < greenIndices1.length; i++) {
-      const idx = greenIndices1[i];
+    for (let i = 0; i < greenIndices.length; i++) {
+      const idx = greenIndices[i];
       if (keypoints[idx]) {
         const [x, y] = keypoints[idx];
         vertex(x, y);
@@ -60,13 +60,13 @@ function draw() {
     }
     endShape();
 
-    // 畫第二組綠色線
-    stroke(0, 255, 0);
+    // 畫藍色線
+    stroke(0, 0, 255);
     strokeWeight(10);
     noFill();
     beginShape();
-    for (let i = 0; i < greenIndices2.length; i++) {
-      const idx = greenIndices2[i];
+    for (let i = 0; i < blueIndices.length; i++) {
+      const idx = blueIndices[i];
       if (keypoints[idx]) {
         const [x, y] = keypoints[idx];
         vertex(x, y);
