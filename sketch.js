@@ -41,17 +41,6 @@ function draw() {
       }
     }
     endShape();
-
-    // 只畫 indices 內的點
-    for (let i = 0; i < indices.length; i++) {
-      const idx = indices[i];
-      if (keypoints[idx]) {
-        const [x, y] = keypoints[idx];
-        fill(0, 255, 0);
-        noStroke();
-        ellipse(x, y, 8, 8);
-      }
-    }
   }
   pop();
 }
