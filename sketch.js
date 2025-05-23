@@ -35,10 +35,19 @@ function draw() {
     beginShape();
     for (let i = 0; i < indices.length; i++) {
       const idx = indices[i];
-      const [x, y] = keypoints[idx];
-      vertex(x, y);
+      if (keypoints[idx]) {
+        const [x, y] = keypoints[idx];
+        vertex(x, y);
+      }
     }
     endShape();
+
+    for (let i = 0; i < keypoints.length; i++) {
+      const [x, y] = keypoints[i];
+      fill(0, 255, 0);
+      noStroke();
+      ellipse(x, y, 5, 5);
+    }
   }
   pop();
 }
