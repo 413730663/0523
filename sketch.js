@@ -4,8 +4,6 @@ let predictions = [];
 const indices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291];
 
 function setup() {
-  createCanvas(640, 480).parent(document.body);
-  // 置中畫布
   let cnv = createCanvas(640, 480);
   cnv.position((windowWidth - width) / 2, (windowHeight - height) / 2);
 
