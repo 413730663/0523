@@ -1,0 +1,42 @@
+let video;
+let facemesh;
+let predictions = [];
+const indices = [409, 270, 269, 267, 0, 37, 39, 40, 185, 61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291];
+
+function setup() {
+  createCanvas(640, 480).parent(document.body);
+  // 置中畫布
+  let cnv = createCanvas(640, 480);
+  cnv.position((windowWidth - width) / 2, (windowHeight - height) / 2);
+
+  video = createCapture(VIDEO);
+  video.size(width, height);
+  video.hide();
+
+  facemesh = ml5.facemesh(video, modelReady);
+  facemesh.on('predict', results => {
+    predictions = results;
+  });
+}
+
+function modelReady() {
+  console.log('Facemesh model loaded!');
+}
+
+function draw() {
+  image(video, 0, 0, width, height);
+
+  if (predictions.length > 0) {
+    const keypoints = predictions[0].scaledMesh;
+    stroke(255, 0, 0);
+    strokeWeight(15);
+    noFill();
+    beginShape();
+    for (let i = 0; i < indices.length; i++) {
+      const idx = indices[i];
+      const [x, y] = keypoints[idx];
+      vertex(x, y);
+    }
+    endShape();
+  }
+}
